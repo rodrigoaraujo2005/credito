@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:13
+    container_name: credit-postgres
+    environment:
+      POSTGRES_DB: creditdb
+      POSTGRES_USER: credituser
+      POSTGRES_PASSWORD: creditpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - credit-network
+
+  
+
+volumes:
+  postgres_data:
+
+networks:
+  credit-network:
+    driver: bridge
+
