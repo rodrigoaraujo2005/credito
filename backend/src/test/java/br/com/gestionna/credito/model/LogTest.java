@@ -7,40 +7,40 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ApiAccessLogTest {
+class LogTest {
 
     @Test
     void of_devCriarApiAccessLogComCurrentTimestamp() {
-        String functionality = "testFuncinal";
+        String funcionalidade = "testFuncinal";
         
-        LogDTO apiAccessLog = LogDTO.of(functionality);
+        LogDTO log = LogDTO.of(funcionalidade);
         
-        assertNotNull(apiAccessLog);
-        assertEquals(functionality, apiAccessLog.getFunctionality());
-        assertNotNull(apiAccessLog.getAccessTime());
+        assertNotNull(log);
+        assertEquals(funcionalidade, log.getFuncionalidade());
+        assertNotNull(log.getDataHoraAcesso());
         LocalDateTime now = LocalDateTime.now();
-        assertTrue(apiAccessLog.getAccessTime().isAfter(now.minusSeconds(1)));
-        assertTrue(apiAccessLog.getAccessTime().isBefore(now.plusSeconds(1)));
+        assertTrue(log.getDataHoraAcesso().isAfter(now.minusSeconds(1)));
+        assertTrue(log.getDataHoraAcesso().isBefore(now.plusSeconds(1)));
     }
 
     @Test
     void construtorEGettersSetters_deveCorreto() {
-        String functionality = "testFuncinal";
+        String funcionalidade = "testFuncinal";
         LocalDateTime accessTime = LocalDateTime.now();
         
-        LogDTO apiAccessLog = new LogDTO(functionality, accessTime);
+        LogDTO log = new LogDTO(funcionalidade, accessTime);
         
-        assertEquals(functionality, apiAccessLog.getFunctionality());
-        assertEquals(accessTime, apiAccessLog.getAccessTime());
+        assertEquals(funcionalidade, log.getFuncionalidade());
+        assertEquals(accessTime, log.getDataHoraAcesso());
         
         String newFunctionality = "newFunctionality";
         LocalDateTime newAccessTime = LocalDateTime.now().plusHours(1);
         
-        apiAccessLog.setFunctionality(newFunctionality);
-        apiAccessLog.setAccessTime(newAccessTime);
+        log.setFuncionalidade(newFunctionality);
+        log.setDataHoraAcesso(newAccessTime);
         
-        assertEquals(newFunctionality, apiAccessLog.getFunctionality());
-        assertEquals(newAccessTime, apiAccessLog.getAccessTime());
+        assertEquals(newFunctionality, log.getFuncionalidade());
+        assertEquals(newAccessTime, log.getDataHoraAcesso());
     }
 
     @Test

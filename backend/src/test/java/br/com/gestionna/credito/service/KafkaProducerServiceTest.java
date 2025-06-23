@@ -27,30 +27,30 @@ class KafkaProducerServiceTest {
     @BeforeEach
     void setUp() {
         kafkaProducerService = new KafkaProducerService(kafkaTemplate);
-        ReflectionTestUtils.setField(kafkaProducerService, "apiAccessLogTopic", testTopic);
+        ReflectionTestUtils.setField(kafkaProducerService, "logTopic", testTopic);
     }
 
     @Test
     void enviarApiAccessLog_deveEnviarLogToKafka() {
-        LogDTO apiAccessLog = LogDTO.of("testFunctionality");
+        LogDTO log = LogDTO.of("testFunctionality");
 
-        kafkaProducerService.sendApiAccessLog(apiAccessLog);
+        kafkaProducerService.enviaLog(log);
 
-        verify(kafkaTemplate).send(eq(testTopic), eq(apiAccessLog));
+        verify(kafkaTemplate).send(eq(testTopic), eq(log));
     }
 
     @Test
     void logApiAccess_deveCriarEEnviarLogToKafka() {
-        String functionality = "testFunctionality";
+        String funcionalidade = "testFunctionality";
 
-        kafkaProducerService.logApiAccess(functionality);
+        kafkaProducerService.enviaLogNomeFuncioalidadeAcessada(funcionalidade);
 
         ArgumentCaptor<LogDTO> logCaptor = ArgumentCaptor.forClass(LogDTO.class);
         verify(kafkaTemplate).send(eq(testTopic), logCaptor.capture());
 
         LogDTO capturedLog = logCaptor.getValue();
         assertNotNull(capturedLog);
-        assertEquals(functionality, capturedLog.getFunctionality());
-        assertNotNull(capturedLog.getAccessTime());
+        assertEquals(funcionalidade, capturedLog.getFuncionalidade());
+        assertNotNull(capturedLog.getDataHoraAcesso());
     }
 }

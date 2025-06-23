@@ -87,7 +87,7 @@ class CreditoControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(creditoDTOList, response.getBody());
-        verify(kafkaProducerService).logApiAccess("getCreditosByNumeroNfse");
+        verify(kafkaProducerService).enviaLogNomeFuncioalidadeAcessada("getCreditosByNumeroNfse");
     }
 
     @Test
@@ -98,7 +98,7 @@ class CreditoControllerTest {
         ResponseEntity<List<CreditoDTO>> response = creditoController.getCreditosByNumeroNfse(numeroNfse);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        verify(kafkaProducerService).logApiAccess("getCreditosByNumeroNfse");
+        verify(kafkaProducerService).enviaLogNomeFuncioalidadeAcessada("getCreditosByNumeroNfse");
     }
 
     @Test
@@ -111,7 +111,7 @@ class CreditoControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(creditoDTO, response.getBody());
-        verify(kafkaProducerService).logApiAccess("getCreditoByNumeroCredito");
+        verify(kafkaProducerService).enviaLogNomeFuncioalidadeAcessada("getCreditoByNumeroCredito");
     }
 
     @Test
@@ -122,7 +122,7 @@ class CreditoControllerTest {
         ResponseEntity<CreditoDTO> response = creditoController.getCreditoByNumeroCredito(numeroCredito);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        verify(kafkaProducerService).logApiAccess("getCreditoByNumeroCredito");
+        verify(kafkaProducerService).enviaLogNomeFuncioalidadeAcessada("getCreditoByNumeroCredito");
     }
 
     @Test
@@ -134,6 +134,6 @@ class CreditoControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(creditoDTOList, response.getBody());
-        verify(kafkaProducerService).logApiAccess("getAllCreditos");
+        verify(kafkaProducerService).enviaLogNomeFuncioalidadeAcessada("getAllCreditos");
     }
 }
