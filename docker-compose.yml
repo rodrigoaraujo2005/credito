@@ -78,11 +78,11 @@ services:
     networks:
       - credito-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health | grep UP || exit 1"]
-      interval: 20s
-      timeout: 10s
+      test: "curl --fail --silent http://localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 2s
+      timeout: 3s
       retries: 5
-      start_period: 30s
+      start_period: 2s
 
   # Frontend Service
   frontend:
