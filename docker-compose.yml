@@ -77,12 +77,7 @@ services:
         condition: service_healthy
     networks:
       - credito-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+
 
 
   # Frontend Service
@@ -96,8 +91,7 @@ services:
     environment:
       API_URL: http://backend:8080
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - credito-network
     healthcheck:
